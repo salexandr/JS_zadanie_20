@@ -276,12 +276,14 @@
 
 var str = JSON.stringify(test);
 var json_data = JSON.parse(str);
-json_data = _.map(json_data, 'skills'); //выбираем все skills
+
+//--skills--
+var skills_data = _.map(json_data, 'skills'); //выбираем все skills
  
  var json_data2 = [];
-for (i = 0; i < json_data.length; i++) {  //единый массив
+for (i = 0; i < skills_data.length; i++) {  //единый массив
 
- json_data[i].forEach(function(entry) {
+ skills_data[i].forEach(function(entry) {
     json_data2.push(entry);
 });
 }
@@ -293,5 +295,51 @@ for (i = 0; i < json_data2.length; i++) {  //нижний регистр
 
 json_data3 = _.union(json_data3);  //удаление повторов
 
- json_data = _.sortBy(json_data3);  //сортировка по алфавиту
-console.log(json_data); 
+ skills = _.sortBy(json_data3);  //сортировка по алфавиту
+ 
+console.log(skills); 
+
+//--name--
+var name_data = _.map(json_data, 'name');
+var friends_data = _.map(json_data, 'friends');
+
+var friends_data2 = [];
+
+for (i = 0; i < friends_data.length; i++) {
+    friends_data2.push(friends_data[i].length);
+ }
+
+ var name_data2 = [];
+  for (i = 0; i < name_data.length; i++) {
+	  var a = name_data2[i];
+     a = {};
+	a['name'] = name_data[i];
+	a['friends'] = friends_data2[i];	
+	    name_data2.push(a);
+ }
+
+var name_friends = _.sortBy(name_data2, ['friends', 'name']);
+
+console.log(name_friends);
+
+//--friends--
+
+var users_data = [];
+for (i = 0; i < friends_data.length; i++) {
+	var b = _.map(friends_data[i], 'name'); 
+    users_data.push(b);
+ }
+
+  var users_data2 = [];
+for (i = 0; i < users_data.length; i++) {  //единый массив
+
+ users_data[i].forEach(function(entry) {
+    users_data2.push(entry);
+});
+}
+ 
+users_data2 = _.union(users_data2); 
+
+users_data = _.sortBy(users_data2);
+ 
+console.log(users_data);
